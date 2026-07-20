@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login - Chomba Plumbing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="login-page">
+
+    <div class="login-box">
+        <div class="logo-center">
+            <img src="logo.png" alt="Chomba Logo" />
+            <h2>Chomba Plumbing</h2>
+            <p>Admin Login</p>
+        </div>
+        <form id="loginForm">
+            <input type="email" placeholder="Email Address" id="loginEmail" required />
+            <input type="password" placeholder="Password" id="loginPassword" required />
+            <button type="submit" class="btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+            <div class="error-msg" id="loginError">Invalid credentials. Please try again.</div>
+            <div class="error-msg" id="loginLoading" style="color:#e67e22;display:none;">
+                <i class="fas fa-spinner fa-spin"></i> Checking credentials...
+            </div>
+        </form>
+    </div>
+
+    <script type="module">
+        import { db, collection, getDocs, query, where } from './firebase-config.js';
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorEl = document.getElementById('loginError');
+            const loadingEl = document.getElementById('loginLoading');
+            
+            if (!email || !password) {
+                errorEl.textContent = 'Please enter both email and password.';
+                errorEl.classList.add('show');
+                return;
+            }
+
+            // Show loading
+            loadingEl.style.display = 'block';
+            errorEl.classList.remove('show');
+            document.getElementById('loginBtn').disabled = true;
+            document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+            try {
+                // Query Firebase for admin credentials
+                const adminsRef = collection(db, 'admins');
+                const q = query(adminsRef, where('email', '==', email));
+                const querySnapshot = await getDocs(q);
+
+                let found = false;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.password === password) {
+                        found = true;
+                        sessionStorage.setItem('adminLoggedIn', 'true');
+                        sessionStorage.setItem('adminEmail', email);
+                        window.location.href = 'admin.html';
+                    }
+                });
+
+                if (!found) {
+                    errorEl.textContent = '❌ Invalid email or password. Please try again.';
+                    errorEl.classList.add('show');
+                    loadingEl.style.display = 'none';
+                    document.getElementById('loginBtn').disabled = false;
+                    document.getElementById('loginBtn').innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+                }
+
+            } catch (error) {
+                console.error('Login error:', error);
+                errorEl.textContent = '❌ Connection error. Please try again.';
+                errorEl.classList.add('show');
+                loadingEl.style.display = 'none';
+                document.getElementById('loginBtn').disabled = false;
+                document.getElementById('loginBtn').innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            }
+        });
+
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            window.location.href = 'admin.html';
+        }
+    </script>
+</body>
+</html>

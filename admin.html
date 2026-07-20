@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Chomba Plumbing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .admin-upload-area {
+            border: 3px dashed #dde8db;
+            padding: 50px 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 16px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafcfa;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .admin-upload-area:hover {
+            border-color: #e67e22;
+            background: #fefaf5;
+        }
+        .admin-upload-area.dragover {
+            border-color: #e67e22;
+            background: #fefaf5;
+            transform: scale(1.02);
+        }
+        .admin-upload-area i {
+            font-size: 4rem;
+            color: #e67e22;
+            margin-bottom: 12px;
+        }
+        .admin-upload-area p {
+            color: #2f5547;
+            font-size: 1.1rem;
+        }
+        .admin-upload-area small {
+            color: #a8c9a0;
+            margin-top: 4px;
+        }
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .preview-grid .preview-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #e2eee0;
+            aspect-ratio: 1;
+        }
+        .preview-grid .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .preview-grid .preview-item .remove-btn {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .preview-grid .preview-item .remove-btn:hover {
+            transform: scale(1.1);
+        }
+        .upload-progress {
+            width: 100%;
+            height: 8px;
+            background: #e2eee0;
+            border-radius: 4px;
+            margin-top: 16px;
+            overflow: hidden;
+            display: none;
+        }
+        .upload-progress.show {
+            display: block;
+        }
+        .upload-progress .bar {
+            height: 100%;
+            background: linear-gradient(90deg, #e67e22, #f5a623);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+        #uploadStatus {
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+        }
+        #uploadStatus.success {
+            display: block;
+            background: #e8f5e5;
+            color: #1a4a2a;
+        }
+        #uploadStatus.error {
+            display: block;
+            background: #fde8e8;
+            color: #a33;
+        }
+        #uploadStatus.loading {
+            display: block;
+            background: #fff3e0;
+            color: #e67e22;
+        }
+        
+        .image-thumbnails {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 12px 0;
+            max-height: 180px;
+            overflow-y: auto;
+            padding: 8px;
+            border: 1px solid #e2eee0;
+            border-radius: 8px;
+            background: #fafcfa;
+        }
+        .image-thumbnails .thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 3px solid #e2eee0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .image-thumbnails .thumb:hover {
+            border-color: #e67e22;
+            transform: scale(1.05);
+        }
+        .image-thumbnails .thumb.selected {
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.3);
+        }
+        .image-thumbnails .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-thumbnails .thumb .check {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #e67e22;
+            color: #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+        }
+        .image-thumbnails .thumb.selected .check {
+            display: flex;
+        }
+        .no-images-msg {
+            color: #2f5547;
+            font-size: 0.9rem;
+            padding: 12px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Password Change Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-overlay.show {
+            display: flex;
+        }
+        .modal-box {
+            background: #fff;
+            padding: 40px 36px;
+            border-radius: 20px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: scaleIn 0.3s ease;
+        }
+        .modal-box h2 {
+            color: #1a4a2a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-box h2 i {
+            color: #e67e22;
+        }
+        .modal-box p {
+            color: #2f5547;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .modal-box input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2eee0;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 14px;
+            transition: 0.3s;
+        }
+        .modal-box input:focus {
+            border-color: #e67e22;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.1);
+        }
+        .modal-box .btn-group-modal {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .modal-box .btn-group-modal .btn {
+            flex: 1;
+            justify-content: center;
+        }
+        .modal-box .btn-group-modal .btn-cancel {
+            background: #e2eee0;
+            color: #1a4a2a;
+            box-shadow: none;
+        }
+        .modal-box .btn-group-modal .btn-cancel:hover {
+            background: #c7dfc2;
+        }
+        .modal-box .error-msg {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: none;
+        }
+        .modal-box .error-msg.show {
+            display: block;
+        }
+        .modal-box .success-msg {
+            color: #28a745;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: none;
+        }
+        .modal-box .success-msg.show {
+            display: block;
+        }
+        .modal-box .loading-msg {
+            color: #e67e22;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: none;
+        }
+        .modal-box .loading-msg.show {
+            display: block;
+        }
+
+        .admin-hero .change-pwd-btn {
+            background: #f5a623;
+            color: #1a4a2a;
+            padding: 8px 24px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-left: 12px;
+            transition: 0.3s;
+        }
+        .admin-hero .change-pwd-btn:hover {
+            background: #e67e22;
+            transform: scale(1.05);
+        }
+        .admin-hero .logout-btn {
+            background: #dc3545;
+            color: #fff;
+            padding: 8px 24px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 12px;
+            transition: 0.3s;
+        }
+        .admin-hero .logout-btn:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .admin-email-display {
+            color: #b8d9b0;
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+        .admin-email-display i {
+            color: #f5a623;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-flex">
+            <div class="logo">
+                <img src="logo.png" alt="Chomba Logo" />
+                <div class="logo-text">
+                    <span class="brand">CHOMBA <span>PLUMBING</span></span>
+                    <span class="sub">&amp; LANDSCAPING ENGINEERS LTD</span>
+                </div>
+            </div>
+            <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            <nav class="nav" id="mainNav">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
+                <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
+                <a href="testimonials.html"><i class="fas fa-star"></i> Reviews</a>
+                <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                <a href="admin.html" class="active"><i class="fas fa-cog"></i> Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="admin-hero">
+        <div class="container">
+            <h1><i class="fas fa-cog"></i> Admin Dashboard</h1>
+            <p>Manage your website content - News, Gallery, Team, Stats, and Reviews</p>
+            <div class="admin-email-display" id="adminEmailDisplay">
+                <i class="fas fa-user-shield"></i> Logged in as: <span id="adminEmail">Loading...</span>
+            </div>
+            <div style="margin-top:12px;">
+                <button class="change-pwd-btn" id="changePwdBtn"><i class="fas fa-key"></i> Change Password</button>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PASSWORD CHANGE MODAL ===== -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-box">
+            <h2><i class="fas fa-key"></i> Change Password</h2>
+            <p>Enter your current password and a new password.</p>
+            <form id="passwordForm">
+                <input type="password" placeholder="Current Password *" id="currentPassword" required />
+                <input type="password" placeholder="New Password *" id="newPassword" required minlength="6" />
+                <input type="password" placeholder="Confirm New Password *" id="confirmPassword" required />
+                <div class="error-msg" id="pwdError">Passwords do not match or incorrect.</div>
+                <div class="success-msg" id="pwdSuccess">✅ Password changed successfully!</div>
+                <div class="loading-msg" id="pwdLoading"><i class="fas fa-spinner fa-spin"></i> Updating password...</div>
+                <div class="btn-group-modal">
+                    <button type="button" class="btn btn-cancel" id="cancelPwdBtn"><i class="fas fa-times"></i> Cancel</button>
+                    <button type="submit" class="btn" id="updatePwdBtn"><i class="fas fa-save"></i> Update Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Stats Overview -->
+        <div class="admin-stats-overview" id="adminStatsOverview">
+            <div class="admin-stat-card">
+                <i class="fas fa-newspaper"></i>
+                <div class="number" id="adminNewsCount">0</div>
+                <div class="label">News</div>
+            </div>
+            <div class="admin-stat-card">
+                <i class="fas fa-images"></i>
+                <div class="number" id="adminGalleryCount">0</div>
+                <div class="label">Gallery Images</div>
+            </div>
+            <div class="admin-stat-card">
+                <i class="fas fa-users"></i>
+                <div class="number" id="adminTeamCount">0</div>
+                <div class="label">Team Members</div>
+            </div>
+            <div class="admin-stat-card">
+                <i class="fas fa-star"></i>
+                <div class="number" id="adminReviewsCount">0</div>
+                <div class="label">Reviews</div>
+            </div>
+            <div class="admin-stat-card">
+                <i class="fas fa-file-invoice"></i>
+                <div class="number" id="adminQuotesCount">0</div>
+                <div class="label">Quotes</div>
+            </div>
+            <div class="admin-stat-card">
+                <i class="fas fa-envelope"></i>
+                <div class="number" id="adminMessagesCount">0</div>
+                <div class="label">Messages</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="admin-tabs">
+            <button class="active" data-tab="news">📰 News</button>
+            <button data-tab="gallery">🖼️ Gallery</button>
+            <button data-tab="team">👥 Team</button>
+            <button data-tab="stats">📊 Stats</button>
+            <button data-tab="reviews">⭐ Reviews</button>
+            <button data-tab="quotes">📄 Quotes</button>
+            <button data-tab="messages">✉️ Messages</button>
+        </div>
+
+        <!-- ===== NEWS TAB ===== -->
+        <div class="admin-section active" id="tab-news">
+            <div class="admin-panel">
+                <h3><i class="fas fa-plus-circle"></i> Add News</h3>
+                <form class="admin-form" id="newsForm">
+                    <input type="text" placeholder="News Title *" id="newsTitle" required />
+                    <textarea placeholder="News Content *" id="newsContent" required></textarea>
+                    <input type="text" placeholder="Date (e.g., July 20, 2026)" id="newsDate" />
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block;font-weight:600;color:#1a3a2a;margin-bottom:6px;">Select Image (click a thumbnail below)</label>
+                        <div class="image-thumbnails" id="newsThumbnails">
+                            <div class="no-images-msg">No images uploaded yet. Upload in Gallery tab.</div>
+                        </div>
+                        <input type="hidden" id="newsImage" />
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Publish News</button>
+                </form>
+            </div>
+
+            <div class="admin-panel">
+                <h3><i class="fas fa-list"></i> All News <span id="newsCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
+                <div class="admin-list" id="newsList"></div>
+            </div>
+        </div>
+
+        <!-- ===== GALLERY TAB ===== -->
+        <div class="admin-section" id="tab-gallery">
+            <div class="admin-panel">
+                <h3><i class="fas fa-cloud-upload-alt"></i> Upload Images to Cloudinary</h3>
+                <div class="admin-upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p><strong>Drag & drop images here</strong></p>
+                    <p style="font-size:0.9rem;">or click to select files</p>
+                    <small>Supported: JPG, PNG, WEBP (Max 5MB each)</small>
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display:none;" />
+                </div>
+                <div class="upload-progress" id="uploadProgress">
+                    <div class="bar" id="uploadBar"></div>
+                </div>
+                <div id="uploadPreview" class="preview-grid"></div>
+                <div id="uploadStatus"></div>
+                <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;">
+                    <button class="btn btn-success" id="uploadToCloudinaryBtn"><i class="fas fa-upload"></i> Upload to Cloudinary</button>
+                    <button class="btn btn-outline" id="clearUploadBtn"><i class="fas fa-times"></i> Clear All</button>
+                </div>
+                <div style="margin-top:12px;padding:12px;background:#f8faf8;border-radius:8px;border:1px solid #e2eee0;">
+                    <p style="color:#2f5547;font-size:0.9rem;margin:0;">
+                        <i class="fas fa-info-circle" style="color:#e67e22;"></i> 
+                        After uploading, images will appear below. Click any image to use it in News or Team.
+                    </p>
+                </div>
+            </div>
+
+            <div class="admin-panel">
+                <h3><i class="fas fa-plus-circle"></i> Add Gallery Image</h3>
+                <form class="admin-form" id="galleryForm">
+                    <input type="text" placeholder="Project Title *" id="galleryTitle" required />
+                    <input type="text" placeholder="Category (e.g., Plumbing, Landscaping) *" id="galleryCategory" required />
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block;font-weight:600;color:#1a3a2a;margin-bottom:6px;">Select Image (click a thumbnail below)</label>
+                        <div class="image-thumbnails" id="galleryThumbnails">
+                            <div class="no-images-msg">Upload images above first.</div>
+                        </div>
+                        <input type="hidden" id="galleryImage" />
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Add to Gallery</button>
+                </form>
+            </div>
+
+            <div class="admin-panel">
+                <h3><i class="fas fa-list"></i> Gallery Images <span id="galleryCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
+                <div class="admin-list" id="galleryList"></div>
+            </div>
+        </div>
+
+        <!-- ===== TEAM TAB ===== -->
+        <div class="admin-section" id="tab-team">
+            <div class="admin-panel">
+                <h3><i class="fas fa-plus-circle"></i> Add Team Member</h3>
+                <form class="admin-form" id="teamForm">
+                    <input type="text" placeholder="Full Name *" id="teamName" required />
+                    <input type="text" placeholder="Role (e.g., Head Plumber) *" id="teamRole" required />
+                    <textarea placeholder="Bio / Description" id="teamBio"></textarea>
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block;font-weight:600;color:#1a3a2a;margin-bottom:6px;">Select Image (click a thumbnail below)</label>
+                        <div class="image-thumbnails" id="teamThumbnails">
+                            <div class="no-images-msg">No images uploaded yet. Upload in Gallery tab.</div>
+                        </div>
+                        <input type="hidden" id="teamImage" />
+                    </div>
+                    <input type="text" placeholder="Facebook URL" id="teamFacebook" />
+                    <input type="text" placeholder="Instagram URL" id="teamInstagram" />
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Add Team Member</button>
+                </form>
+            </div>
+
+            <div class="admin-panel">
+                <h3><i class="fas fa-list"></i> Team Members <span id="teamCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
+                <div class="admin-list" id="teamList"></div>
+            </div>
+        </div>
+
+        <!-- ===== STATS TAB ===== -->
+        <div class="admin-section" id="tab-stats">
+            <div class="admin-panel">
+                <h3><i class="fas fa-chart-bar"></i> Update Statistics</h3>
+                <form class="admin-form" id="statsForm">
+                    <div class="admin-stat-edit">
+                        <input type="text" placeholder="Projects (e.g., 500+)" id="statProjects" />
+                        <input type="text" placeholder="Clients (e.g., 100+)" id="statClients" />
+                        <input type="text" placeholder="Years (e.g., 5+)" id="statYears" />
+                        <input type="text" placeholder="Support (e.g., 24/7)" id="statSupport" />
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Update Stats</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== REVIEWS TAB ===== -->
+        <div class="admin-section" id="tab-reviews">
+            <div class="admin-panel">
+                <h3><i class="fas fa-list"></i> All Reviews <span id="reviewsCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
+                <div class="admin-list" id="reviewsList"></div>
+            </div>
+        </div>
+
+        <!-- ===== QUOTES TAB ===== -->
+        <div class="admin-section" id="tab-quotes">
+            <div class="admin-panel">
+                <h3><i class="fas fa-file-invoice"></i> Quote Requests <span id="quotesCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
+                <div class="admin-list" id="quotesList"></div>
+            </div>
+        </div>
+
+        <!-- ===== MESSAGES TAB ===== -->
+        <div class="admin-section" id="tab-messages">
+            <div class="admin-panel">
+                <h3><i class="fas fa-envelope"></i> Contact Messages <span id="messagesCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
+                <div class="admin-list" id="messagesList"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-flex">
+                <div class="footer-col">
+                    <h4><i class="fas fa-seedling"></i> Chomba</h4>
+                    <p><i class="fas fa-map-pin"></i> Kabulonga, Plot N33 Kudu Road, Lusaka</p>
+                    <p><i class="fas fa-phone"></i> 0967 563 554 / 0970 140 638</p>
+                    <p><i class="fas fa-envelope"></i> gchomba051@gmail.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                    <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                    <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
+                    <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
+                    <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p style="margin-top:12px;"><i class="fas fa-clock"></i> Mon-Sat: 7:00AM - 6:00PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <i class="far fa-copyright"></i> 2026 Chomba Plumbing &amp; Landscaping Engineers Ltd
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/260967563554" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
+    <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script type="module">
+        import { 
+            db,
+            collection, 
+            addDoc, 
+            getDocs, 
+            deleteDoc, 
+            doc, 
+            updateDoc,
+            query, 
+            orderBy, 
+            serverTimestamp,
+            onSnapshot,
+            where,
+            getDoc,
+            CLOUDINARY_URL,
+            CLOUDINARY_UPLOAD_PRESET
+        } from './firebase-config.js';
+
+        // ===== CHECK LOGIN =====
+        const adminEmail = sessionStorage.getItem('adminEmail');
+        if (sessionStorage.getItem('adminLoggedIn') !== 'true' || !adminEmail) {
+            window.location.href = 'login.html';
+        }
+
+        // Display admin email
+        document.getElementById('adminEmail').textContent = adminEmail;
+
+        // ===== LOGOUT =====
+        document.getElementById('logoutBtn')?.addEventListener('click', () => {
+            sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('adminEmail');
+            window.location.href = 'login.html';
+        });
+
+        // ===== PASSWORD CHANGE =====
+        const pwdModal = document.getElementById('passwordModal');
+        const changePwdBtn = document.getElementById('changePwdBtn');
+        const cancelPwdBtn = document.getElementById('cancelPwdBtn');
+
+        changePwdBtn?.addEventListener('click', () => {
+            pwdModal.classList.add('show');
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            document.getElementById('pwdError').classList.remove('show');
+            document.getElementById('pwdSuccess').classList.remove('show');
+            document.getElementById('pwdLoading').classList.remove('show');
+        });
+
+        cancelPwdBtn?.addEventListener('click', () => {
+            pwdModal.classList.remove('show');
+        });
+
+        pwdModal?.addEventListener('click', (e) => {
+            if (e.target === pwdModal) {
+                pwdModal.classList.remove('show');
+            }
+        });
+
+        // ===== UPDATE PASSWORD IN FIREBASE =====
+        document.getElementById('passwordForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const current = document.getElementById('currentPassword').value.trim();
+            const newPwd = document.getElementById('newPassword').value.trim();
+            const confirm = document.getElementById('confirmPassword').value.trim();
+            
+            const errorEl = document.getElementById('pwdError');
+            const successEl = document.getElementById('pwdSuccess');
+            const loadingEl = document.getElementById('pwdLoading');
+            const updateBtn = document.getElementById('updatePwdBtn');
+
+            // Reset messages
+            errorEl.classList.remove('show');
+            successEl.classList.remove('show');
+            loadingEl.classList.remove('show');
+
+            if (newPwd.length < 6) {
+                errorEl.textContent = '❌ Password must be at least 6 characters.';
+                errorEl.classList.add('show');
+                return;
+            }
+
+            if (newPwd !== confirm) {
+                errorEl.textContent = '❌ Passwords do not match.';
+                errorEl.classList.add('show');
+                return;
+            }
+
+            // Show loading
+            loadingEl.classList.add('show');
+            updateBtn.disabled = true;
+            updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+
+            try {
+                // Find the admin document
+                const adminsRef = collection(db, 'admins');
+                const q = query(adminsRef, where('email', '==', adminEmail));
+                const querySnapshot = await getDocs(q);
+
+                let found = false;
+                let adminDocId = null;
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.password === current) {
+                        found = true;
+                        adminDocId = doc.id;
+                    }
+                });
+
+                if (!found) {
+                    errorEl.textContent = '❌ Current password is incorrect.';
+                    errorEl.classList.add('show');
+                    loadingEl.classList.remove('show');
+                    updateBtn.disabled = false;
+                    updateBtn.innerHTML = '<i class="fas fa-save"></i> Update Password';
+                    return;
+                }
+
+                // Update the password
+                await updateDoc(doc(db, 'admins', adminDocId), {
+                    password: newPwd,
+                    updatedAt: serverTimestamp()
+                });
+
+                loadingEl.classList.remove('show');
+                successEl.classList.add('show');
+                updateBtn.disabled = false;
+                updateBtn.innerHTML = '<i class="fas fa-save"></i> Update Password';
+
+                setTimeout(() => {
+                    pwdModal.classList.remove('show');
+                    alert('✅ Password changed successfully!');
+                }, 1000);
+
+            } catch (error) {
+                console.error('Password update error:', error);
+                errorEl.textContent = '❌ Error updating password. Please try again.';
+                errorEl.classList.add('show');
+                loadingEl.classList.remove('show');
+                updateBtn.disabled = false;
+                updateBtn.innerHTML = '<i class="fas fa-save"></i> Update Password';
+            }
+        });
+
+        // ===== MOBILE NAV =====
+        document.getElementById('navToggle')?.addEventListener('click', () => {
+            document.getElementById('mainNav')?.classList.toggle('open');
+        });
+
+        // ===== SCROLL TO TOP =====
+        const scrollBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+        scrollBtn?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== TAB SWITCHING =====
+        document.querySelectorAll('.admin-tabs button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+                document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+            });
+        });
+
+        // ===== CLOUDINARY UPLOAD =====
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const previewGrid = document.getElementById('uploadPreview');
+        const uploadStatus = document.getElementById('uploadStatus');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const uploadBar = document.getElementById('uploadBar');
+        const uploadBtn = document.getElementById('uploadToCloudinaryBtn');
+        const clearBtn = document.getElementById('clearUploadBtn');
+
+        let selectedFiles = [];
+
+        uploadArea?.addEventListener('click', () => fileInput.click());
+        
+        uploadArea?.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea?.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea?.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelect(e.dataTransfer.files);
+            }
+        });
+
+        fileInput?.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFileSelect(e.target.files);
+            }
+        });
+
+        clearBtn?.addEventListener('click', () => {
+            selectedFiles = [];
+            previewGrid.innerHTML = '';
+            fileInput.value = '';
+            uploadStatus.className = '';
+            uploadStatus.textContent = '';
+            uploadStatus.style.display = 'none';
+        });
+
+        function handleFileSelect(files) {
+            selectedFiles = Array.from(files);
+            previewGrid.innerHTML = '';
+            selectedFiles.forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const div = document.createElement('div');
+                    div.className = 'preview-item';
+                    div.innerHTML = `
+                        <img src="${ev.target.result}" alt="${file.name}" />
+                        <button class="remove-btn" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+                    `;
+                    previewGrid.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+            uploadStatus.style.display = 'block';
+            uploadStatus.className = 'loading';
+            uploadStatus.textContent = `${selectedFiles.length} image(s) selected. Click "Upload to Cloudinary" to upload.`;
+        }
+
+        uploadBtn?.addEventListener('click', async function() {
+            if (selectedFiles.length === 0) {
+                uploadStatus.style.display = 'block';
+                uploadStatus.className = 'error';
+                uploadStatus.textContent = '❌ No images selected. Please drag & drop images first.';
+                return;
+            }
+
+            const uploadedUrls = [];
+            uploadProgress.classList.add('show');
+
+            for (let i = 0; i < selectedFiles.length; i++) {
+                const file = selectedFiles[i];
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+                const progress = ((i + 1) / selectedFiles.length) * 100;
+                uploadBar.style.width = progress + '%';
+
+                try {
+                    const response = await fetch(CLOUDINARY_URL, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+                    if (data.secure_url) {
+                        uploadedUrls.push(data.secure_url);
+                    }
+                } catch (error) {
+                    console.error('Upload failed:', error);
+                }
+            }
+
+            uploadProgress.classList.remove('show');
+            uploadBar.style.width = '0%';
+
+            if (uploadedUrls.length > 0) {
+                try {
+                    for (let url of uploadedUrls) {
+                        await addDoc(collection(db, 'gallery'), {
+                            image: url,
+                            title: 'Uploaded Image',
+                            category: 'General',
+                            timestamp: serverTimestamp()
+                        });
+                    }
+                    
+                    uploadStatus.style.display = 'block';
+                    uploadStatus.className = 'success';
+                    uploadStatus.innerHTML = `✅ ${uploadedUrls.length} image(s) uploaded to Cloudinary and saved to gallery!<br>
+                        <small style="font-weight:400;">These images now appear in the thumbnails below. Click any to use.</small>`;
+                    
+                    previewGrid.innerHTML = '';
+                    selectedFiles = [];
+                    fileInput.value = '';
+                    
+                    loadAdminList('gallery', 'galleryList', { title: 'title', subtitle: 'category' }, 'adminGalleryCount');
+                    loadThumbnails();
+                    
+                } catch (error) {
+                    console.error('Firestore save error:', error);
+                    uploadStatus.style.display = 'block';
+                    uploadStatus.className = 'error';
+                    uploadStatus.textContent = '⚠️ Images uploaded but failed to save to database.';
+                }
+            } else {
+                uploadStatus.style.display = 'block';
+                uploadStatus.className = 'error';
+                uploadStatus.textContent = '❌ No images were uploaded. Please try again.';
+            }
+        });
+
+        // ===== LOAD THUMBNAILS =====
+        function loadThumbnails() {
+            const q = query(collection(db, 'gallery'), orderBy('timestamp', 'desc'));
+            onSnapshot(q, (snapshot) => {
+                const thumbContainers = {
+                    news: document.getElementById('newsThumbnails'),
+                    gallery: document.getElementById('galleryThumbnails'),
+                    team: document.getElementById('teamThumbnails')
+                };
+
+                const hiddenInputs = {
+                    news: document.getElementById('newsImage'),
+                    gallery: document.getElementById('galleryImage'),
+                    team: document.getElementById('teamImage')
+                };
+
+                const noImagesHtml = `<div class="no-images-msg">No images uploaded yet. Upload in Gallery tab.</div>`;
+
+                if (snapshot.empty) {
+                    Object.values(thumbContainers).forEach(el => {
+                        if (el) el.innerHTML = noImagesHtml;
+                    });
+                    return;
+                }
+
+                let thumbHtml = '';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.image) {
+                        thumbHtml += `
+                            <div class="thumb" data-url="${data.image}" onclick="selectImage(this, '${data.image}')">
+                                <img src="${data.image}" alt="${data.title || 'Image'}" />
+                                <div class="check"><i class="fas fa-check"></i></div>
+                            </div>
+                        `;
+                    }
+                });
+
+                if (!thumbHtml) {
+                    Object.values(thumbContainers).forEach(el => {
+                        if (el) el.innerHTML = noImagesHtml;
+                    });
+                    return;
+                }
+
+                Object.values(thumbContainers).forEach(el => {
+                    if (el) el.innerHTML = thumbHtml;
+                });
+
+                Object.values(hiddenInputs).forEach(el => {
+                    if (el) el.value = '';
+                });
+            });
+        }
+
+        window.selectImage = function(element, url) {
+            document.querySelectorAll('.thumb').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            const inputs = ['newsImage', 'galleryImage', 'teamImage'];
+            inputs.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.value = url;
+                    input.style.background = '#e8f5e5';
+                    input.style.color = '#1a4a2a';
+                    input.style.borderColor = '#e67e22';
+                }
+            });
+
+            const status = document.getElementById('uploadStatus');
+            if (status) {
+                status.style.display = 'block';
+                status.className = 'success';
+                status.innerHTML = `✅ Image selected! You can now use it in your form below.`;
+            }
+        };
+
+        // ===== LOAD ADMIN LISTS =====
+        async function loadAdminList(collectionName, containerId, fields, countId = null) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            try {
+                const q = query(collection(db, collectionName), orderBy('timestamp', 'desc'));
+                const snapshot = await getDocs(q);
+                const count = snapshot.size;
+                if (countId) {
+                    document.getElementById(countId).textContent = count;
+                    const badgeMap = {
+                        'adminNewsCount': 'newsCountBadge',
+                        'adminGalleryCount': 'galleryCountBadge',
+                        'adminTeamCount': 'teamCountBadge',
+                        'adminReviewsCount': 'reviewsCountBadge',
+                        'adminQuotesCount': 'quotesCountBadge',
+                        'adminMessagesCount': 'messagesCountBadge'
+                    };
+                    if (badgeMap[countId]) {
+                        const badge = document.getElementById(badgeMap[countId]);
+                        if (badge) badge.textContent = `(${count})`;
+                    }
+                }
+                if (snapshot.empty) {
+                    container.innerHTML = `<p style="color:#2f5547;text-align:center;padding:20px;">No items found.</p>`;
+                    return;
+                }
+                let html = '';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const id = doc.id;
+                    const title = data[fields.title] || 'Untitled';
+                    const subtitle = data[fields.subtitle] || '';
+                    const extra = data[fields.extra] || '';
+                    const imagePreview = data.image ? `<img src="${data.image}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;margin-right:12px;" />` : '';
+                    html += `
+                        <div class="list-item">
+                            <div class="info" style="display:flex;align-items:center;">
+                                ${imagePreview}
+                                <div>
+                                    <h4>${title}</h4>
+                                    <p>${subtitle} ${extra ? '· ' + extra : ''}</p>
+                                    ${data.timestamp ? `<small style="color:#a8c9a0;font-size:0.75rem;">${new Date(data.timestamp.seconds * 1000).toLocaleDateString()}</small>` : ''}
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button class="delete-btn" data-id="${id}" data-col="${collectionName}"><i class="fas fa-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+
+                container.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', async function() {
+                        if (confirm('Delete this item?')) {
+                            try {
+                                await deleteDoc(doc(db, this.dataset.col, this.dataset.id));
+                                loadAdminList(collectionName, containerId, fields, countId);
+                                if (collectionName === 'gallery') {
+                                    loadThumbnails();
+                                }
+                            } catch (e) {
+                                alert('Error deleting item');
+                            }
+                        }
+                    });
+                });
+            } catch (e) {
+                console.error('Error loading', collectionName, e);
+            }
+        }
+
+        // Load all lists
+        loadAdminList('news', 'newsList', { title: 'title', subtitle: 'date' }, 'adminNewsCount');
+        loadAdminList('gallery', 'galleryList', { title: 'title', subtitle: 'category' }, 'adminGalleryCount');
+        loadAdminList('team', 'teamList', { title: 'name', subtitle: 'role' }, 'adminTeamCount');
+        loadAdminList('testimonials', 'reviewsList', { title: 'name', subtitle: 'comment' }, 'adminReviewsCount');
+        loadAdminList('quotes', 'quotesList', { title: 'name', subtitle: 'service', extra: 'phone' }, 'adminQuotesCount');
+        loadAdminList('messages', 'messagesList', { title: 'name', subtitle: 'subject', extra: 'email' }, 'adminMessagesCount');
+        
+        loadThumbnails();
+
+        // ===== NEWS FORM =====
+        document.getElementById('newsForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const title = document.getElementById('newsTitle').value.trim();
+            const content = document.getElementById('newsContent').value.trim();
+            const image = document.getElementById('newsImage').value.trim() || '';
+            const date = document.getElementById('newsDate').value.trim() || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            if (!title || !content) { alert('Title and content are required.'); return; }
+            try {
+                await addDoc(collection(db, 'news'), { title, content, image, date, timestamp: serverTimestamp() });
+                alert('✅ News published!');
+                this.reset();
+                document.getElementById('newsImage').value = '';
+                document.querySelectorAll('.thumb').forEach(el => el.classList.remove('selected'));
+                loadAdminList('news', 'newsList', { title: 'title', subtitle: 'date' }, 'adminNewsCount');
+            } catch (e) { alert('Error: ' + e.message); }
+        });
+
+        // ===== GALLERY FORM =====
+        document.getElementById('galleryForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const title = document.getElementById('galleryTitle').value.trim();
+            const category = document.getElementById('galleryCategory').value.trim();
+            const image = document.getElementById('galleryImage').value.trim();
+            if (!title || !category || !image) { alert('Please select an image first (click a thumbnail).'); return; }
+            try {
+                await addDoc(collection(db, 'gallery'), { title, category, image, timestamp: serverTimestamp() });
+                alert('✅ Image added to gallery!');
+                this.reset();
+                document.getElementById('galleryImage').value = '';
+                document.querySelectorAll('.thumb').forEach(el => el.classList.remove('selected'));
+                loadAdminList('gallery', 'galleryList', { title: 'title', subtitle: 'category' }, 'adminGalleryCount');
+                loadThumbnails();
+            } catch (e) { alert('Error: ' + e.message); }
+        });
+
+        // ===== TEAM FORM =====
+        document.getElementById('teamForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('teamName').value.trim();
+            const role = document.getElementById('teamRole').value.trim();
+            const bio = document.getElementById('teamBio').value.trim();
+            const image = document.getElementById('teamImage').value.trim() || '';
+            const facebook = document.getElementById('teamFacebook').value.trim();
+            const instagram = document.getElementById('teamInstagram').value.trim();
+            if (!name || !role) { alert('Name and role are required.'); return; }
+            try {
+                await addDoc(collection(db, 'team'), { name, role, bio, image, facebook, instagram, timestamp: serverTimestamp() });
+                alert('✅ Team member added!');
+                this.reset();
+                document.getElementById('teamImage').value = '';
+                document.querySelectorAll('.thumb').forEach(el => el.classList.remove('selected'));
+                loadAdminList('team', 'teamList', { title: 'name', subtitle: 'role' }, 'adminTeamCount');
+            } catch (e) { alert('Error: ' + e.message); }
+        });
+
+        // ===== STATS FORM =====
+        document.getElementById('statsForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const projects = document.getElementById('statProjects').value.trim() || '500+';
+            const clients = document.getElementById('statClients').value.trim() || '100+';
+            const years = document.getElementById('statYears').value.trim() || '5+';
+            const support = document.getElementById('statSupport').value.trim() || '24/7';
+            try {
+                await updateDoc(doc(db, 'settings', 'stats'), { projects, clients, years, support });
+                alert('✅ Stats updated!');
+            } catch (e) {
+                try {
+                    await addDoc(collection(db, 'settings'), { projects, clients, years, support, id: 'stats' });
+                    alert('✅ Stats created!');
+                } catch (e2) { alert('Error: ' + e2.message); }
+            }
+        });
+
+        console.log('🔧 Admin dashboard loaded!');
+        console.log('👤 Logged in as:', adminEmail);
+    </script>
+</body>
+</html>

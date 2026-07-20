@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Chomba Plumbing & Landscaping</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .contact-hero {
+            background: linear-gradient(135deg, #1a4a2a, #2a6a3a);
+            color: #fff;
+            padding: 60px 0 50px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(245, 166, 35, 0.05);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+        .contact-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #f5a623;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease;
+        }
+        .contact-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 12px auto 0;
+            color: #d4e8d0;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        .contact-hero .breadcrumb {
+            color: #b8d9b0;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+        .contact-hero .breadcrumb a {
+            color: #f5a623;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0 30px;
+        }
+        .contact-form-box {
+            background: #fff;
+            padding: 32px 28px;
+            border-radius: 16px;
+            border: 1px solid #e2eee0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        }
+        .contact-form-box h3 {
+            color: #1a4a2a;
+            margin-bottom: 16px;
+        }
+        .contact-form-box h3 i {
+            color: #e67e22;
+        }
+        .contact-form-box input,
+        .contact-form-box textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2eee0;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 14px;
+            transition: 0.3s;
+        }
+        .contact-form-box input:focus,
+        .contact-form-box textarea:focus {
+            border-color: #e67e22;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.1);
+        }
+        .contact-form-box textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .contact-info-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-info-side .info-card {
+            background: #fff;
+            padding: 24px 22px;
+            border-radius: 16px;
+            border: 1px solid #e2eee0;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+        .contact-info-side .info-card:hover {
+            transform: translateX(6px);
+            border-color: #e67e22;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+        .contact-info-side .info-card i {
+            font-size: 2rem;
+            color: #e67e22;
+            width: 50px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .contact-info-side .info-card:hover i {
+            transform: scale(1.1) rotate(-5deg);
+        }
+        .contact-info-side .info-card h4 {
+            color: #1a4a2a;
+            font-size: 1rem;
+        }
+        .contact-info-side .info-card p {
+            color: #2f5547;
+        }
+        .contact-info-side .info-card a {
+            color: #1a4a2a;
+        }
+        .contact-info-side .info-card a:hover {
+            color: #e67e22;
+        }
+
+        .map-container {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e2eee0;
+            margin: 16px 0 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+            display: block;
+        }
+
+        .social-links-full {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 16px 0 24px;
+        }
+        .social-links-full a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 40px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .social-links-full a:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .social-links-full .fb { background: #1877f2; }
+        .social-links-full .ig { background: #e4405f; }
+        .social-links-full .tt { background: #000; }
+        .social-links-full .wa { background: #25D366; }
+        .social-links-full .yt { background: #ff0000; }
+
+        .emergency-banner {
+            background: #dc3545;
+            color: #fff;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 16px 0;
+            animation: pulse 2s infinite;
+        }
+        .emergency-banner i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .emergency-banner a {
+            color: #fff;
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero h1 {
+                font-size: 2.2rem;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-info-side .info-card {
+                padding: 18px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-flex">
+            <div class="logo">
+                <img src="logo.png" alt="Chomba Logo" />
+                <div class="logo-text">
+                    <span class="brand">CHOMBA <span>PLUMBING</span></span>
+                    <span class="sub">&amp; LANDSCAPING ENGINEERS LTD</span>
+                </div>
+            </div>
+            <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            <nav class="nav" id="mainNav">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
+                <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
+                <a href="testimonials.html"><i class="fas fa-star"></i> Reviews</a>
+                <a href="contact.html" class="active"><i class="fas fa-phone-alt"></i> Contact</a>
+                <a href="admin.html"><i class="fas fa-cog"></i> Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="contact-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.7rem;margin:0 8px;"></i> Contact
+            </div>
+            <h1>Contact Us</h1>
+            <p>Get in touch with us for all your plumbing and landscaping needs</p>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- Emergency Banner -->
+        <div class="emergency-banner animate-on-scroll">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>Emergency Plumbing?</strong> Call us now: 
+            <a href="tel:+260967563554">0967 563 554</a> or 
+            <a href="tel:+260970140638">0970 140 638</a>
+            <i class="fas fa-clock" style="margin-left:10px;"></i> 24/7 Available
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-form-box animate-on-scroll delay-1">
+                <h3><i class="fas fa-envelope"></i> Send Us a Message</h3>
+                <form id="contactForm">
+                    <input type="text" placeholder="Your Name *" required />
+                    <input type="email" placeholder="Your Email *" required />
+                    <input type="tel" placeholder="Phone Number" />
+                    <input type="text" placeholder="Subject" />
+                    <textarea placeholder="Your Message *" required></textarea>
+                    <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info-side">
+                <div class="animate-on-scroll delay-2 info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Kabulonga, Plot N33 Kudu Road<br />Lusaka, Zambia</p>
+                    </div>
+                </div>
+                <div class="animate-on-scroll delay-3 info-card">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Call / WhatsApp</h4>
+                        <p><a href="tel:+260967563554">0967 563 554</a> / <a href="tel:+260970140638">0970 140 638</a></p>
+                    </div>
+                </div>
+                <div class="animate-on-scroll delay-4 info-card">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p><a href="mailto:gchomba051@gmail.com">gchomba051@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="animate-on-scroll delay-5 info-card">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Business Hours</h4>
+                        <p>Monday - Saturday: 7:00AM - 6:00PM<br />Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-container animate-on-scroll">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.282149410619!2d28.299364!3d-15.394475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1940f55c5c9f7d7d%3A0x7f3c3b0f8b5c5b0!2sKabulonga%2C%20Lusaka%2C%20Zambia!5e0!3m2!1sen!2s!4v1710000000000" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+
+        <div class="social-links-full animate-on-scroll">
+            <a href="#" class="fb"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="#" class="ig"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#" class="tt"><i class="fab fa-tiktok"></i> TikTok</a>
+            <a href="#" class="wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="#" class="yt"><i class="fab fa-youtube"></i> YouTube</a>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-flex">
+                <div class="footer-col">
+                    <h4><i class="fas fa-seedling"></i> Chomba</h4>
+                    <p><i class="fas fa-map-pin"></i> Kabulonga, Plot N33 Kudu Road, Lusaka</p>
+                    <p><i class="fas fa-phone"></i> 0967 563 554 / 0970 140 638</p>
+                    <p><i class="fas fa-envelope"></i> gchomba051@gmail.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                    <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                    <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
+                    <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
+                    <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p style="margin-top:12px;"><i class="fas fa-clock"></i> Mon-Sat: 7:00AM - 6:00PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <i class="far fa-copyright"></i> 2026 Chomba Plumbing &amp; Landscaping Engineers Ltd
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/260967563554" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
+    <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

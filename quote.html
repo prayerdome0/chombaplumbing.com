@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request a Quote - Chomba Plumbing & Landscaping</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .quote-hero {
+            background: linear-gradient(135deg, #1a4a2a, #2a6a3a);
+            color: #fff;
+            padding: 60px 0 50px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .quote-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(245, 166, 35, 0.05);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+        .quote-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #f5a623;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease;
+        }
+        .quote-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 12px auto 0;
+            color: #d4e8d0;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        .quote-hero .breadcrumb {
+            color: #b8d9b0;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+        .quote-hero .breadcrumb a {
+            color: #f5a623;
+        }
+
+        .quote-form-full {
+            background: #fff;
+            padding: 36px 32px;
+            border-radius: 16px;
+            border: 1px solid #e2eee0;
+            margin: 20px 0 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        }
+        .quote-form-full h3 {
+            color: #1a4a2a;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .quote-form-full h3 i {
+            color: #e67e22;
+            margin-right: 10px;
+        }
+        .quote-form-full .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 6px;
+        }
+        .quote-form-full .form-group.full {
+            grid-column: 1 / -1;
+        }
+        .quote-form-full label {
+            display: block;
+            font-weight: 600;
+            color: #1a3a2a;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+        .quote-form-full input,
+        .quote-form-full textarea,
+        .quote-form-full select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2eee0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #fafcfa;
+            transition: 0.3s;
+            margin-bottom: 6px;
+        }
+        .quote-form-full input:focus,
+        .quote-form-full textarea:focus,
+        .quote-form-full select:focus {
+            outline: none;
+            border-color: #e67e22;
+            box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.1);
+        }
+        .quote-form-full textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .quote-form-full .file-upload {
+            border: 2px dashed #dde8db;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #fafcfa;
+        }
+        .quote-form-full .file-upload:hover {
+            border-color: #e67e22;
+            background: #fefaf5;
+        }
+        .quote-form-full .file-upload i {
+            font-size: 2rem;
+            color: #e67e22;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .quote-form-full .file-upload small {
+            color: #2f5547;
+            font-size: 0.85rem;
+        }
+        .quote-form-full .file-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .quote-form-full .file-preview img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #e2eee0;
+        }
+
+        .quote-info-box {
+            background: linear-gradient(135deg, #e8f5e5, #c7dfc2);
+            padding: 24px 28px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        .quote-info-box h4 {
+            color: #1a4a2a;
+            margin-bottom: 6px;
+        }
+        .quote-info-box p {
+            color: #2f5547;
+        }
+        .quote-info-box i {
+            color: #e67e22;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .quote-hero h1 {
+                font-size: 2.2rem;
+            }
+            .quote-form-full .form-group {
+                grid-template-columns: 1fr;
+            }
+            .quote-form-full {
+                padding: 24px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-flex">
+            <div class="logo">
+                <img src="logo.png" alt="Chomba Logo" />
+                <div class="logo-text">
+                    <span class="brand">CHOMBA <span>PLUMBING</span></span>
+                    <span class="sub">&amp; LANDSCAPING ENGINEERS LTD</span>
+                </div>
+            </div>
+            <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            <nav class="nav" id="mainNav">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
+                <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
+                <a href="testimonials.html"><i class="fas fa-star"></i> Reviews</a>
+                <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                <a href="admin.html"><i class="fas fa-cog"></i> Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="quote-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.7rem;margin:0 8px;"></i> Request Quote
+            </div>
+            <h1>Request a Quote</h1>
+            <p>Get a free, no-obligation quote for your project</p>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <div class="quote-info-box animate-on-scroll">
+            <h4><i class="fas fa-info-circle"></i> How It Works</h4>
+            <p>Fill in the form below with your project details. We'll review your request and get back to you within 24 hours with a detailed quote.</p>
+        </div>
+
+        <div class="quote-form-full animate-on-scroll">
+            <h3><i class="fas fa-file-invoice"></i> Project Details</h3>
+            <form id="quoteForm">
+                <div class="form-group">
+                    <div>
+                        <label>Full Name <span style="color:#dc3545;">*</span></label>
+                        <input type="text" placeholder="Your full name" required />
+                    </div>
+                    <div>
+                        <label>Phone Number <span style="color:#dc3545;">*</span></label>
+                        <input type="tel" placeholder="Your phone number" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label>Email Address</label>
+                        <input type="email" placeholder="Your email address" />
+                    </div>
+                    <div>
+                        <label>Location</label>
+                        <input type="text" placeholder="Your location" />
+                    </div>
+                </div>
+                <div class="form-group full">
+                    <label>Service Required <span style="color:#dc3545;">*</span></label>
+                    <select required>
+                        <option value="">Select a service...</option>
+                        <option>Plumbing Services</option>
+                        <option>Landscaping</option>
+                        <option>Grass Planting & Lawn Care</option>
+                        <option>Paver Installation & Supply</option>
+                        <option>DSTV Installation</option>
+                        <option>Tree Services</option>
+                        <option>Commercial Property Maintenance</option>
+                        <option>Garden Modernisation</option>
+                        <option>Clear Vu Fencing</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group full">
+                    <label>Project Description <span style="color:#dc3545;">*</span></label>
+                    <textarea placeholder="Please describe your project in detail..." required></textarea>
+                </div>
+                <div class="form-group full">
+                    <label>Upload Photos (Optional)</label>
+                    <div class="file-upload" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to select images or drag & drop</p>
+                        <input type="file" id="quoteFileInput" accept="image/*" multiple style="display:none;" />
+                        <small>Max 5 images (JPG, PNG, WEBP)</small>
+                    </div>
+                    <div class="file-preview" id="quoteFilePreview"></div>
+                </div>
+                <div class="form-group full" style="margin-top:12px;">
+                    <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Submit Quote Request</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="quote-info-box animate-on-scroll delay-1">
+            <h4><i class="fas fa-clock"></i> What Happens Next?</h4>
+            <p>1. We review your request within 24 hours<br />
+               2. We contact you to discuss your project in detail<br />
+               3. We prepare a detailed quote with pricing and timeline<br />
+               4. You approve and we get to work!</p>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-flex">
+                <div class="footer-col">
+                    <h4><i class="fas fa-seedling"></i> Chomba</h4>
+                    <p><i class="fas fa-map-pin"></i> Kabulonga, Plot N33 Kudu Road, Lusaka</p>
+                    <p><i class="fas fa-phone"></i> 0967 563 554 / 0970 140 638</p>
+                    <p><i class="fas fa-envelope"></i> gchomba051@gmail.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                    <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                    <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
+                    <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
+                    <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p style="margin-top:12px;"><i class="fas fa-clock"></i> Mon-Sat: 7:00AM - 6:00PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <i class="far fa-copyright"></i> 2026 Chomba Plumbing &amp; Landscaping Engineers Ltd
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/260967563554" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
+    <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        // File upload preview for quote form
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const fileInput = document.getElementById('quoteFileInput');
+        const filePreview = document.getElementById('quoteFilePreview');
+
+        if (fileUploadArea && fileInput) {
+            fileUploadArea.addEventListener('click', () => fileInput.click());
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = '#e67e22';
+            });
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.style.borderColor = '#dde8db';
+            });
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = '#dde8db';
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleQuoteFiles(e.dataTransfer.files);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    handleQuoteFiles(e.target.files);
+                }
+            });
+
+            function handleQuoteFiles(files) {
+                filePreview.innerHTML = '';
+                const maxFiles = 5;
+                const limitedFiles = Array.from(files).slice(0, maxFiles);
+                limitedFiles.forEach((file) => {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        const img = document.createElement('img');
+                        img.src = ev.target.result;
+                        filePreview.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+                if (files.length > maxFiles) {
+                    alert('Maximum 5 images allowed. Only the first 5 were selected.');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

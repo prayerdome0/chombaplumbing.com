@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testimonials - Chomba Plumbing & Landscaping</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .testimonials-hero {
+            background: linear-gradient(135deg, #1a4a2a, #2a6a3a);
+            color: #fff;
+            padding: 60px 0 50px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .testimonials-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(245, 166, 35, 0.05);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+        .testimonials-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #f5a623;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease;
+        }
+        .testimonials-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 12px auto 0;
+            color: #d4e8d0;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        .testimonials-hero .breadcrumb {
+            color: #b8d9b0;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+        .testimonials-hero .breadcrumb a {
+            color: #f5a623;
+        }
+
+        .testimonial-full {
+            background: #fff;
+            padding: 30px 28px;
+            border-radius: 16px;
+            border: 1px solid #e2eee0;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+        .testimonial-full:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            border-color: #e67e22;
+        }
+        .testimonial-full .stars {
+            color: #f5a623;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .testimonial-full .quote {
+            font-style: italic;
+            font-size: 1.05rem;
+            color: #1a3a2a;
+            line-height: 1.8;
+        }
+        .testimonial-full .quote::before {
+            content: '"';
+            font-size: 2rem;
+            color: #e67e22;
+            font-weight: 700;
+        }
+        .testimonial-full .quote::after {
+            content: '"';
+            font-size: 2rem;
+            color: #e67e22;
+            font-weight: 700;
+        }
+        .testimonial-full .client-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 12px;
+        }
+        .testimonial-full .client-info .name {
+            font-weight: 700;
+            color: #1a4a2a;
+            font-size: 1.05rem;
+        }
+        .testimonial-full .client-info .role {
+            color: #2f5547;
+            font-size: 0.9rem;
+        }
+
+        .testimonials-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #2f5547;
+        }
+        .testimonials-empty i {
+            font-size: 4rem;
+            color: #e67e22;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-flex">
+            <div class="logo">
+                <img src="logo.png" alt="Chomba Logo" />
+                <div class="logo-text">
+                    <span class="brand">CHOMBA <span>PLUMBING</span></span>
+                    <span class="sub">&amp; LANDSCAPING ENGINEERS LTD</span>
+                </div>
+            </div>
+            <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            <nav class="nav" id="mainNav">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
+                <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
+                <a href="testimonials.html" class="active"><i class="fas fa-star"></i> Reviews</a>
+                <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                <a href="admin.html"><i class="fas fa-cog"></i> Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="testimonials-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.7rem;margin:0 8px;"></i> Testimonials
+            </div>
+            <h1>Client Testimonials</h1>
+            <p>What our clients say about our work</p>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- Write Review Form -->
+        <div class="review-form animate-on-scroll">
+            <h3><i class="fas fa-pen" style="color:#e67e22;"></i> Write a Review</h3>
+            <form id="reviewForm">
+                <input type="text" placeholder="Your Name *" id="reviewName" required />
+                <input type="text" placeholder="Your Location (e.g., Lusaka)" id="reviewLocation" />
+                <div class="rating-select">
+                    <button type="button" data-rating="5" class="active">⭐ 5 Stars</button>
+                    <button type="button" data-rating="4">⭐ 4 Stars</button>
+                    <button type="button" data-rating="3">⭐ 3 Stars</button>
+                    <button type="button" data-rating="2">⭐ 2 Stars</button>
+                    <button type="button" data-rating="1">⭐ 1 Star</button>
+                </div>
+                <textarea placeholder="Your Review *" id="reviewComment" required></textarea>
+                <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Submit Review</button>
+            </form>
+        </div>
+
+        <!-- All Testimonials -->
+        <div id="testimonialsFull">
+            <!-- Loaded from Firebase -->
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-flex">
+                <div class="footer-col">
+                    <h4><i class="fas fa-seedling"></i> Chomba</h4>
+                    <p><i class="fas fa-map-pin"></i> Kabulonga, Plot N33 Kudu Road, Lusaka</p>
+                    <p><i class="fas fa-phone"></i> 0967 563 554 / 0970 140 638</p>
+                    <p><i class="fas fa-envelope"></i> gchomba051@gmail.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                    <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                    <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
+                    <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
+                    <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p style="margin-top:12px;"><i class="fas fa-clock"></i> Mon-Sat: 7:00AM - 6:00PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <i class="far fa-copyright"></i> 2026 Chomba Plumbing &amp; Landscaping Engineers Ltd
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/260967563554" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
+    <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script type="module" src="script.js"></script>
+    <script type="module">
+        import { db, collection, query, orderBy, onSnapshot } from './firebase-config.js';
+
+        const container = document.getElementById('testimonialsFull');
+        if (container) {
+            const q = query(collection(db, 'testimonials'), orderBy('timestamp', 'desc'));
+            onSnapshot(q, (snapshot) => {
+                if (snapshot.empty) {
+                    // Default testimonials
+                    const defaults = [
+                        { name: 'Peter M.', comment: 'Chomba did an amazing job on our landscaping. Professional and on time!', rating: 5, location: 'Lusaka' },
+                        { name: 'Grace C.', comment: 'They fixed our plumbing issues quickly and at a fair price. Highly recommend.', rating: 5, location: 'Kabulonga' },
+                        { name: 'John B.', comment: 'The paver installation transformed our yard. Excellent workmanship!', rating: 5, location: 'Chalala' },
+                        { name: 'Mary S.', comment: 'Very professional team. They completed the project on schedule and within budget.', rating: 5, location: 'Woodlands' },
+                    ];
+                    let html = '<div class="testimonials-empty"><i class="fas fa-star"></i><p>No reviews yet. Be the first to write one!</p></div>';
+                    html = '';
+                    defaults.forEach((item) => {
+                        const stars = '★'.repeat(item.rating) + '☆'.repeat(5 - item.rating);
+                        html += `
+                            <div class="testimonial-full animate-on-scroll">
+                                <div class="stars">${stars}</div>
+                                <div class="quote">${item.comment}</div>
+                                <div class="client-info">
+                                    <div>
+                                        <div class="name">${item.name}</div>
+                                        <div class="role">${item.location}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = html;
+                    document.querySelectorAll('.testimonial-full.animate-on-scroll').forEach(el => {
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('visible');
+                                }
+                            });
+                        }, { threshold: 0.1 });
+                        observer.observe(el);
+                    });
+                    return;
+                }
+                let html = '';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const stars = '★'.repeat(data.rating || 5) + '☆'.repeat(5 - (data.rating || 5));
+                    html += `
+                        <div class="testimonial-full animate-on-scroll">
+                            <div class="stars">${stars}</div>
+                            <div class="quote">${data.comment || ''}</div>
+                            <div class="client-info">
+                                <div>
+                                    <div class="name">${data.name || 'Anonymous'}</div>
+                                    <div class="role">${data.location || ''}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+                document.querySelectorAll('.testimonial-full.animate-on-scroll').forEach(el => {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    observer.observe(el);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
