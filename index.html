@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chomba Plumbing & Landscaping</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7f4;
+            color: #1e2b2c;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* HEADER */
+        .header {
+            background: #1a4a2a;
+            padding: 18px 0;
+            box-shadow: 0 4px 12px rgba(0,20,10,0.15);
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px 8px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            height: 55px;
+            width: auto;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-text .brand {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #f5a623;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text .brand span {
+            color: #ffffff;
+        }
+
+        .logo-text .sub {
+            font-size: 0.75rem;
+            color: #b8d9b0;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .nav a {
+            color: #e5efe2;
+            text-decoration: none;
+            margin-left: 28px;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: color 0.2s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+
+        .nav a:hover {
+            color: #f5a623;
+            border-bottom-color: #f5a623;
+        }
+
+        .nav a i {
+            margin-right: 6px;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #e8f5e5 0%, #c7dfc2 100%);
+            padding: 60px 0 72px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 32px;
+        }
+
+        .hero-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1 1 300px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #1a3a2a;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .hero-text h1 .highlight {
+            color: #e67e22;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.1rem;
+            color: #2a4a3a;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #1f3d3a;
+            margin-bottom: 28px;
+            max-width: 500px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #e67e22;
+            color: #000;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(0,30,20,0.1);
+        }
+
+        .btn i {
+            font-size: 1.1rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #1a4a2a;
+            border: 2px solid #1a4a2a;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: #1a4a2a;
+            color: #fff;
+        }
+
+        .btn:hover {
+            background: #d35400;
+            transform: scale(1.02);
+        }
+
+        .hero-image {
+            flex: 1 1 280px;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 12px 28px rgba(0,30,20,0.08);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0,20,10,0.10);
+        }
+
+        .hero-image .badge {
+            background: #1a4a2a;
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 12px;
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 48px 0 28px;
+            color: #1a3a2a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: #e67e22;
+            font-size: 2rem;
+        }
+
+        /* SERVICES */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 28px;
+            margin-bottom: 24px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 28px 20px 24px;
+            border-radius: 3px;
+            box-shadow: 0 6px 18px rgba(0,20,10,0.05);
+            transition: 0.2s ease;
+            text-align: center;
+            border: 1px solid #e2eee0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 30px rgba(30,70,50,0.08);
+        }
+
+        .service-card i {
+            font-size: 2.8rem;
+            color: #e67e22;
+            margin-bottom: 12px;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #1a3a2a;
+        }
+
+        .service-card p {
+            color: #2f4d45;
+            font-size: 0.95rem;
+        }
+
+        /* SERVICES LIST (from screenshot) */
+        .services-list {
+            background: white;
+            border-radius: 3px;
+            padding: 32px 28px;
+            margin: 20px 0 32px;
+            border: 1px solid #dde8db;
+            box-shadow: 0 4px 12px rgba(0,20,10,0.04);
+        }
+
+        .services-list h3 {
+            color: #1a4a2a;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .services-list h3 i {
+            color: #e67e22;
+            margin-right: 10px;
+        }
+
+        .services-list .service-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px 20px;
+        }
+
+        .services-list .service-row span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            color: #1a3a2a;
+            font-size: 0.98rem;
+            border-bottom: 1px solid #f0f5ee;
+        }
+
+        .services-list .service-row span i {
+            color: #e67e22;
+            font-size: 0.8rem;
+            width: 18px;
+        }
+
+        /* PROJECT GALLERY */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 18px 0 10px;
+        }
+
+        .project-item {
+            background: white;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,20,10,0.04);
+            transition: 0.2s;
+            border: 1px solid #dde8db;
+        }
+
+        .project-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 28px rgba(30,70,40,0.08);
+        }
+
+        .project-img {
+            height: 160px;
+            background: #c1d9bb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-info {
+            padding: 16px 18px 20px;
+        }
+
+        .project-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: #1a3a2a;
+        }
+
+        .project-info p {
+            color: #2f5547;
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e67e22;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #000;
+            margin-top: 8px;
+        }
+
+        /* CONTACT / CTA */
+        .cta-section {
+            background: #1a4a2a;
+            color: #ecf7e8;
+            padding: 48px 32px;
+            border-radius: 3px;
+            margin: 48px 0 32px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .cta-section h2 i {
+            color: #f5a623;
+        }
+
+        .cta-section .btn {
+            background: #f5a623;
+            color: #1a3a2a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .cta-section .btn:hover {
+            background: #e67e22;
+            color: #000;
+        }
+
+        .contact-info-box {
+            background: white;
+            border-radius: 3px;
+            padding: 28px 32px;
+            margin: 16px 0 32px;
+            border: 1px solid #dde8db;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .contact-info-box .item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #1a3a2a;
+        }
+
+        .contact-info-box .item i {
+            font-size: 1.4rem;
+            color: #e67e22;
+            width: 32px;
+            text-align: center;
+        }
+
+        .contact-info-box .item a {
+            color: #1a4a2a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-info-box .item a:hover {
+            color: #e67e22;
+        }
+
+        /* FOOTER — full width, green, no radius */
+        .footer {
+            background: #1a4a2a;
+            color: #ffffff;
+            padding: 32px 0 24px;
+            margin-top: 32px;
+            border-radius: 0;
+            width: 100%;
+        }
+
+        .footer-flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 28px;
+        }
+
+        .footer-col h4 {
+            color: #f5a623;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            color: #d4e8d0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .footer-col a:hover {
+            color: #f5a623;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #3a7a55;
+            margin-top: 28px;
+            padding-top: 18px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #b8d9b0;
+        }
+
+        .footer i {
+            width: 20px;
+            color: #f5a623;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 650px) {
+            .header-flex {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .nav a {
+                margin: 0 12px 0 0;
+                font-size: 0.95rem;
+            }
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            .cta-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .contact-info-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .logo-text .brand {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER with colored logo -->
+    <header class="header">
+        <div class="container header-flex">
+            <div class="logo">
+                <img src="1784541062030.png" alt="Chomba Logo">
+                <div class="logo-text">
+                    <span class="brand">CHOMBA <span>PLUMBING</span></span>
+                    <span class="sub">&amp; LANDSCAPING ENGINEERS LTD</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="#"><i class="fas fa-home"></i> Home</a>
+                <a href="#services"><i class="fas fa-wrench"></i> Services</a>
+                <a href="#projects"><i class="fas fa-image"></i> Projects</a>
+                <a href="#contact"><i class="fas fa-phone-alt"></i> Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <h1><span class="highlight">Chomba</span> Plumbing &amp; Landscaping</h1>
+                <div class="tagline">Your trusted partner for quality supplies and services</div>
+                <p>Specialised in plumbing, landscaping, grass planting, general building, paver installation &amp; supply, tree cutting, and more.</p>
+                <div class="btn-group">
+                    <a href="#contact" class="btn"><i class="fas fa-paper-plane"></i> Get a quote</a>
+                    <a href="#services" class="btn btn-outline"><i class="fas fa-chevron-circle-right"></i> Our services</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="1784541079090.jpg" alt="Professional DSTV Installation">
+                <div><span class="badge"><i class="fas fa-check-circle"></i> Professional &amp; Reliable</span></div>
+                <div style="margin-top: 12px; font-weight: 500; color:#1a4a2a;">
+                    <i class="fas fa-star" style="color:#e67e22;"></i> 12K likes · 12K followers
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <div class="container" id="services">
+        <div class="section-title">
+            <i class="fas fa-tools"></i>
+            <span>Our Services</span>
+        </div>
+
+        <!-- Detailed services list from screenshot -->
+        <div class="services-list">
+            <h3><i class="fas fa-list-ul"></i> What We Offer</h3>
+            <div class="service-row">
+                <span><i class="fas fa-check-circle"></i> Grass Planting &amp; Smooth</span>
+                <span><i class="fas fa-check-circle"></i> Landscaping</span>
+                <span><i class="fas fa-check-circle"></i> Lawn Care &amp; Maintenance</span>
+                <span><i class="fas fa-check-circle"></i> Plumbing Services</span>
+                <span><i class="fas fa-check-circle"></i> Paver Installation &amp; Supply</span>
+                <span><i class="fas fa-check-circle"></i> Yard Maintenance (Long Term &amp; Once Off)</span>
+                <span><i class="fas fa-check-circle"></i> Commercial Property Maintenance</span>
+                <span><i class="fas fa-check-circle"></i> Garden Modernisation</span>
+                <span><i class="fas fa-check-circle"></i> Clear Vu Fencing</span>
+                <span><i class="fas fa-check-circle"></i> Tree Trimming &amp; Cutting</span>
+                <span><i class="fas fa-check-circle"></i> DSTV Installation</span>
+                <span><i class="fas fa-check-circle"></i> Dish Mounting &amp; Signal Search</span>
+            </div>
+        </div>
+
+        <!-- Service cards -->
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-wrench"></i>
+                <h3>Plumbing</h3>
+                <p>Repairs, installations, drain cleaning, water heaters, and full system upgrades.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-seedling"></i>
+                <h3>Landscaping</h3>
+                <p>Garden design, irrigation, hardscaping, planting, and seasonal maintenance.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-sprinkler"></i>
+                <h3>Grass &amp; Lawn</h3>
+                <p>Grass planting, lawn care, smooth finishes, and commercial property maintenance.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-palette"></i>
+                <h3>Pavers &amp; Fencing</h3>
+                <p>Paver installation &amp; supply, Clear Vu fencing, and garden modernisation.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-satellite-dish"></i>
+                <h3>DSTV Installation</h3>
+                <p>Dish mounting, cable management, signal searching, Xtra View &amp; error clearing.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-tree"></i>
+                <h3>Tree Services</h3>
+                <p>Tree trimming, cutting, and yard maintenance for residential &amp; commercial.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECTS / GALLERY -->
+    <div class="container" id="projects">
+        <div class="section-title">
+            <i class="fas fa-images"></i>
+            <span>Recent Projects</span>
+        </div>
+        <div class="project-grid">
+            <div class="project-item">
+                <div class="project-img"><img src="1784541079090.jpg" alt="DSTV Installation"></div>
+                <div class="project-info">
+                    <h4>DSTV Installation</h4>
+                    <p>Professional dish mounting &amp; signal search</p>
+                    <span class="tag"><i class="fas fa-satellite-dish"></i> Installation</span>
+                </div>
+            </div>
+            <div class="project-item">
+                <div class="project-img"><img src="1784541119694.jpg" alt="Landscaping Project"></div>
+                <div class="project-info">
+                    <h4>Garden Design</h4>
+                    <p>Modern landscaping &amp; hardscaping</p>
+                    <span class="tag"><i class="fas fa-leaf"></i> Landscaping</span>
+                </div>
+            </div>
+            <div class="project-item">
+                <div class="project-img"><img src="1784541155051.jpg" alt="Chomba Services"></div>
+                <div class="project-info">
+                    <h4>Quality Supplies</h4>
+                    <p>Trusted partner for supplies &amp; services</p>
+                    <span class="tag"><i class="fas fa-star"></i> Featured</span>
+                </div>
+            </div>
+            <div class="project-item">
+                <div class="project-img"><img src="fullservice.png" alt="Services Overview"></div>
+                <div class="project-info">
+                    <h4>Full Service</h4>
+                    <p>Plumbing, landscaping, pavers &amp; more</p>
+                    <span class="tag"><i class="fas fa-tools"></i> All Services</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT / CTA -->
+    <div class="container" id="contact">
+        <div class="cta-section">
+            <h2><i class="fas fa-phone-alt"></i> Ready to transform your space?</h2>
+            <div>
+                <a href="#" class="btn"><i class="fas fa-calendar-check"></i> Get free estimate</a>
+            </div>
+        </div>
+
+        <!-- Contact details from screenshot -->
+        <div class="contact-info-box">
+            <div class="item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <strong>Location</strong><br>
+                    Kabulonga, Plot N33 Kudu Road, Lusaka, Zambia
+                </div>
+            </div>
+            <div class="item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <strong>Call / WhatsApp</strong><br>
+                    <a href="tel:+260967563554">0967 563 554</a> / <a href="tel:+260970140638">0970 140 638</a>
+                </div>
+            </div>
+            <div class="item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <strong>Email</strong><br>
+                    <a href="mailto:gchomba051@gmail.com">gchomba051@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER — full width, green, no radius -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-flex">
+                <div class="footer-col">
+                    <h4><i class="fas fa-seedling"></i> Chomba</h4>
+                    <p><i class="fas fa-map-pin"></i> Kabulonga, Plot N33 Kudu Road, Lusaka</p>
+                    <p><i class="fas fa-phone"></i> 0967 563 554 / 0970 140 638</p>
+                    <p><i class="fas fa-envelope"></i> gchomba051@gmail.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#services"><i class="fas fa-wrench"></i> Services</a>
+                    <a href="#projects"><i class="fas fa-image"></i> Projects</a>
+                    <a href="#contact"><i class="fas fa-phone-alt"></i> Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <i class="far fa-copyright"></i> 2026 Chomba Plumbing &amp; Landscaping Engineers Ltd — Your trusted partner for quality supplies and services.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
