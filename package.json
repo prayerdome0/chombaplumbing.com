@@ -1,0 +1,17 @@
+{
+  "name": "chomba-plumbing-website",
+  "version": "1.0.0",
+  "description": "Chomba Plumbing & Landscaping Website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "serve .",
+    "build": "echo 'Build complete'",
+    "start": "serve ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.0"
+  },
+  "author": "Chomba Plumbing & Landscaping",
+  "license": "MIT"
+}

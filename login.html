@@ -24,6 +24,9 @@
                 <i class="fas fa-spinner fa-spin"></i> Checking credentials...
             </div>
         </form>
+        <div style="text-align:center;margin-top:16px;">
+            <a href="/" style="color:#2f5547;font-size:0.85rem;"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
     </div>
 
     <script type="module">
@@ -43,14 +46,12 @@
                 return;
             }
 
-            // Show loading
             loadingEl.style.display = 'block';
             errorEl.classList.remove('show');
             document.getElementById('loginBtn').disabled = true;
             document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
 
             try {
-                // Query Firebase for admin credentials
                 const adminsRef = collection(db, 'admins');
                 const q = query(adminsRef, where('email', '==', email));
                 const querySnapshot = await getDocs(q);
@@ -62,7 +63,7 @@
                         found = true;
                         sessionStorage.setItem('adminLoggedIn', 'true');
                         sessionStorage.setItem('adminEmail', email);
-                        window.location.href = 'admin.html';
+                        window.location.href = '/admin';
                     }
                 });
 
@@ -84,9 +85,8 @@
             }
         });
 
-        // Check if already logged in
         if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-            window.location.href = 'admin.html';
+            window.location.href = '/admin';
         }
     </script>
 </body>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
     <style>
+        /* All admin styles remain the same as previous */
         .admin-upload-area {
             border: 3px dashed #dde8db;
             padding: 50px 20px;
@@ -120,7 +121,6 @@
             background: #fff3e0;
             color: #e67e22;
         }
-        
         .image-thumbnails {
             display: flex;
             flex-wrap: wrap;
@@ -180,8 +180,6 @@
             text-align: center;
             width: 100%;
         }
-
-        /* Password Change Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -280,7 +278,6 @@
         .modal-box .loading-msg.show {
             display: block;
         }
-
         .admin-hero .change-pwd-btn {
             background: #f5a623;
             color: #1a4a2a;
@@ -312,7 +309,6 @@
             background: #c82333;
             transform: scale(1.05);
         }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -321,7 +317,6 @@
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
-
         .admin-email-display {
             color: #b8d9b0;
             font-size: 0.9rem;
@@ -329,6 +324,202 @@
         }
         .admin-email-display i {
             color: #f5a623;
+        }
+        .admin-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        .admin-tabs button {
+            padding: 10px 24px;
+            border: 2px solid #e2eee0;
+            border-radius: 40px;
+            background: #fff;
+            color: #1a4a2a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .admin-tabs button:hover,
+        .admin-tabs button.active {
+            background: #e67e22;
+            color: #000;
+            border-color: #e67e22;
+        }
+        .admin-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .admin-section.active {
+            display: block;
+        }
+        .admin-panel {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 28px;
+            border: 1px solid #e2eee0;
+            margin: 20px 0 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        }
+        .admin-panel h3 {
+            color: #1a4a2a;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .admin-panel h3 i {
+            color: #e67e22;
+        }
+        .admin-form input,
+        .admin-form textarea,
+        .admin-form select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2eee0;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+        .admin-form input:focus,
+        .admin-form textarea:focus,
+        .admin-form select:focus {
+            border-color: #e67e22;
+            outline: none;
+        }
+        .admin-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .admin-list {
+            margin-top: 20px;
+        }
+        .admin-list .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f8faf8;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #e2eee0;
+            transition: 0.3s;
+        }
+        .admin-list .list-item:hover {
+            border-color: #e67e22;
+        }
+        .admin-list .list-item .info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .admin-list .list-item .info h4 {
+            color: #1a3a2a;
+            font-size: 1rem;
+        }
+        .admin-list .list-item .info p {
+            color: #2f5547;
+            font-size: 0.85rem;
+        }
+        .admin-list .list-item .actions {
+            display: flex;
+            gap: 8px;
+        }
+        .admin-list .list-item .actions button {
+            padding: 4px 12px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .admin-list .list-item .actions .delete-btn {
+            background: #dc3545;
+            color: #fff;
+        }
+        .admin-list .list-item .actions .delete-btn:hover {
+            background: #c82333;
+        }
+        .admin-stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .admin-stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2eee0;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .admin-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+        .admin-stat-card .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1a4a2a;
+        }
+        .admin-stat-card .label {
+            color: #2f5547;
+            font-size: 0.9rem;
+        }
+        .admin-stat-card i {
+            color: #e67e22;
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+        .admin-hero {
+            background: linear-gradient(135deg, #1a4a2a, #2a6a3a);
+            color: #fff;
+            padding: 40px 0 30px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .admin-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #f5a623;
+        }
+        .admin-hero p {
+            font-size: 1.1rem;
+            color: #d4e8d0;
+        }
+        .admin-stat-edit {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .admin-stat-edit input {
+            padding: 12px 16px;
+            border: 2px solid #e2eee0;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+        @media (max-width: 768px) {
+            .admin-stats-overview {
+                grid-template-columns: 1fr 1fr;
+            }
+            .admin-stat-edit {
+                grid-template-columns: 1fr;
+            }
+            .admin-list .list-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .admin-list .list-item .info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
@@ -345,13 +536,13 @@
             </div>
             <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
             <nav class="nav" id="mainNav">
-                <a href="index.html"><i class="fas fa-home"></i> Home</a>
-                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
-                <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
-                <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
-                <a href="testimonials.html"><i class="fas fa-star"></i> Reviews</a>
-                <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
-                <a href="admin.html" class="active"><i class="fas fa-cog"></i> Admin</a>
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="/services"><i class="fas fa-wrench"></i> Services</a>
+                <a href="/gallery"><i class="fas fa-image"></i> Gallery</a>
+                <a href="/testimonials"><i class="fas fa-star"></i> Reviews</a>
+                <a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a>
+                <a href="/admin" class="active"><i class="fas fa-cog"></i> Admin</a>
             </nav>
         </div>
     </header>
@@ -370,7 +561,7 @@
         </div>
     </section>
 
-    <!-- ===== PASSWORD CHANGE MODAL ===== -->
+    <!-- Password Change Modal -->
     <div class="modal-overlay" id="passwordModal">
         <div class="modal-box">
             <h2><i class="fas fa-key"></i> Change Password</h2>
@@ -391,8 +582,6 @@
     </div>
 
     <div class="container">
-
-        <!-- Stats Overview -->
         <div class="admin-stats-overview" id="adminStatsOverview">
             <div class="admin-stat-card">
                 <i class="fas fa-newspaper"></i>
@@ -426,7 +615,6 @@
             </div>
         </div>
 
-        <!-- Tabs -->
         <div class="admin-tabs">
             <button class="active" data-tab="news">📰 News</button>
             <button data-tab="gallery">🖼️ Gallery</button>
@@ -437,7 +625,7 @@
             <button data-tab="messages">✉️ Messages</button>
         </div>
 
-        <!-- ===== NEWS TAB ===== -->
+        <!-- NEWS TAB -->
         <div class="admin-section active" id="tab-news">
             <div class="admin-panel">
                 <h3><i class="fas fa-plus-circle"></i> Add News</h3>
@@ -455,14 +643,13 @@
                     <button type="submit" class="btn"><i class="fas fa-save"></i> Publish News</button>
                 </form>
             </div>
-
             <div class="admin-panel">
                 <h3><i class="fas fa-list"></i> All News <span id="newsCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
                 <div class="admin-list" id="newsList"></div>
             </div>
         </div>
 
-        <!-- ===== GALLERY TAB ===== -->
+        <!-- GALLERY TAB -->
         <div class="admin-section" id="tab-gallery">
             <div class="admin-panel">
                 <h3><i class="fas fa-cloud-upload-alt"></i> Upload Images to Cloudinary</h3>
@@ -482,14 +669,7 @@
                     <button class="btn btn-success" id="uploadToCloudinaryBtn"><i class="fas fa-upload"></i> Upload to Cloudinary</button>
                     <button class="btn btn-outline" id="clearUploadBtn"><i class="fas fa-times"></i> Clear All</button>
                 </div>
-                <div style="margin-top:12px;padding:12px;background:#f8faf8;border-radius:8px;border:1px solid #e2eee0;">
-                    <p style="color:#2f5547;font-size:0.9rem;margin:0;">
-                        <i class="fas fa-info-circle" style="color:#e67e22;"></i> 
-                        After uploading, images will appear below. Click any image to use it in News or Team.
-                    </p>
-                </div>
             </div>
-
             <div class="admin-panel">
                 <h3><i class="fas fa-plus-circle"></i> Add Gallery Image</h3>
                 <form class="admin-form" id="galleryForm">
@@ -505,14 +685,13 @@
                     <button type="submit" class="btn"><i class="fas fa-save"></i> Add to Gallery</button>
                 </form>
             </div>
-
             <div class="admin-panel">
                 <h3><i class="fas fa-list"></i> Gallery Images <span id="galleryCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
                 <div class="admin-list" id="galleryList"></div>
             </div>
         </div>
 
-        <!-- ===== TEAM TAB ===== -->
+        <!-- TEAM TAB -->
         <div class="admin-section" id="tab-team">
             <div class="admin-panel">
                 <h3><i class="fas fa-plus-circle"></i> Add Team Member</h3>
@@ -532,14 +711,13 @@
                     <button type="submit" class="btn"><i class="fas fa-save"></i> Add Team Member</button>
                 </form>
             </div>
-
             <div class="admin-panel">
                 <h3><i class="fas fa-list"></i> Team Members <span id="teamCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
                 <div class="admin-list" id="teamList"></div>
             </div>
         </div>
 
-        <!-- ===== STATS TAB ===== -->
+        <!-- STATS TAB -->
         <div class="admin-section" id="tab-stats">
             <div class="admin-panel">
                 <h3><i class="fas fa-chart-bar"></i> Update Statistics</h3>
@@ -555,7 +733,7 @@
             </div>
         </div>
 
-        <!-- ===== REVIEWS TAB ===== -->
+        <!-- REVIEWS TAB -->
         <div class="admin-section" id="tab-reviews">
             <div class="admin-panel">
                 <h3><i class="fas fa-list"></i> All Reviews <span id="reviewsCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
@@ -563,7 +741,7 @@
             </div>
         </div>
 
-        <!-- ===== QUOTES TAB ===== -->
+        <!-- QUOTES TAB -->
         <div class="admin-section" id="tab-quotes">
             <div class="admin-panel">
                 <h3><i class="fas fa-file-invoice"></i> Quote Requests <span id="quotesCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
@@ -571,14 +749,13 @@
             </div>
         </div>
 
-        <!-- ===== MESSAGES TAB ===== -->
+        <!-- MESSAGES TAB -->
         <div class="admin-section" id="tab-messages">
             <div class="admin-panel">
                 <h3><i class="fas fa-envelope"></i> Contact Messages <span id="messagesCountBadge" style="font-size:0.9rem;color:#2f5547;font-weight:400;"></span></h3>
                 <div class="admin-list" id="messagesList"></div>
             </div>
         </div>
-
     </div>
 
     <footer class="footer">
@@ -592,11 +769,11 @@
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-                    <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
-                    <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
-                    <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
-                    <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                    <a href="/"><i class="fas fa-home"></i> Home</a>
+                    <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+                    <a href="/services"><i class="fas fa-wrench"></i> Services</a>
+                    <a href="/gallery"><i class="fas fa-image"></i> Gallery</a>
+                    <a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a>
                 </div>
                 <div class="footer-col">
                     <h4>Connect</h4>
@@ -640,17 +817,16 @@
         // ===== CHECK LOGIN =====
         const adminEmail = sessionStorage.getItem('adminEmail');
         if (sessionStorage.getItem('adminLoggedIn') !== 'true' || !adminEmail) {
-            window.location.href = 'login.html';
+            window.location.href = '/login';
         }
 
-        // Display admin email
         document.getElementById('adminEmail').textContent = adminEmail;
 
         // ===== LOGOUT =====
         document.getElementById('logoutBtn')?.addEventListener('click', () => {
             sessionStorage.removeItem('adminLoggedIn');
             sessionStorage.removeItem('adminEmail');
-            window.location.href = 'login.html';
+            window.location.href = '/login';
         });
 
         // ===== PASSWORD CHANGE =====
@@ -678,7 +854,6 @@
             }
         });
 
-        // ===== UPDATE PASSWORD IN FIREBASE =====
         document.getElementById('passwordForm')?.addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -691,7 +866,6 @@
             const loadingEl = document.getElementById('pwdLoading');
             const updateBtn = document.getElementById('updatePwdBtn');
 
-            // Reset messages
             errorEl.classList.remove('show');
             successEl.classList.remove('show');
             loadingEl.classList.remove('show');
@@ -708,13 +882,11 @@
                 return;
             }
 
-            // Show loading
             loadingEl.classList.add('show');
             updateBtn.disabled = true;
             updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
 
             try {
-                // Find the admin document
                 const adminsRef = collection(db, 'admins');
                 const q = query(adminsRef, where('email', '==', adminEmail));
                 const querySnapshot = await getDocs(q);
@@ -739,7 +911,6 @@
                     return;
                 }
 
-                // Update the password
                 await updateDoc(doc(db, 'admins', adminDocId), {
                     password: newPwd,
                     updatedAt: serverTimestamp()
@@ -806,16 +977,13 @@
         let selectedFiles = [];
 
         uploadArea?.addEventListener('click', () => fileInput.click());
-        
         uploadArea?.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('dragover');
         });
-        
         uploadArea?.addEventListener('dragleave', () => {
             uploadArea.classList.remove('dragover');
         });
-        
         uploadArea?.addEventListener('drop', (e) => {
             e.preventDefault();
             uploadArea.classList.remove('dragover');

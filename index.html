@@ -9,7 +9,6 @@
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
     <header class="header">
         <div class="container header-flex">
             <div class="logo">
@@ -21,18 +20,17 @@
             </div>
             <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
             <nav class="nav" id="mainNav">
-                <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
-                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
-                <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
-                <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
-                <a href="testimonials.html"><i class="fas fa-star"></i> Reviews</a>
-                <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
-                <a href="admin.html"><i class="fas fa-cog"></i> Admin</a>
+                <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="/services"><i class="fas fa-wrench"></i> Services</a>
+                <a href="/gallery"><i class="fas fa-image"></i> Gallery</a>
+                <a href="/testimonials"><i class="fas fa-star"></i> Reviews</a>
+                <a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a>
+                <a href="/admin"><i class="fas fa-cog"></i> Admin</a>
             </nav>
         </div>
     </header>
 
-    <!-- ===== HERO ===== -->
     <section class="hero">
         <div class="container hero-grid">
             <div class="hero-text">
@@ -40,12 +38,12 @@
                 <div class="tagline">Your trusted partner for quality supplies and services</div>
                 <p>Specialised in plumbing, landscaping, grass planting, general building, paver installation &amp; supply, tree cutting, and more.</p>
                 <div class="btn-group">
-                    <a href="quote.html" class="btn"><i class="fas fa-paper-plane"></i> Request Quote</a>
-                    <a href="services.html" class="btn btn-outline"><i class="fas fa-chevron-circle-right"></i> Our Services</a>
+                    <a href="/quote" class="btn"><i class="fas fa-paper-plane"></i> Request Quote</a>
+                    <a href="/services" class="btn btn-outline"><i class="fas fa-chevron-circle-right"></i> Our Services</a>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="hero-bg.jpg" alt="Professional Services" />
+                <img src="logo.png" alt="Chomba Plumbing" style="border-radius:28px;width:100%;height:auto;background:#c7dfc2;padding:20px;" />
                 <div><span class="badge"><i class="fas fa-check-circle"></i> Professional &amp; Reliable</span></div>
                 <div class="social-proof">
                     <i class="fas fa-star"></i> 12K likes · 12K followers
@@ -54,7 +52,6 @@
         </div>
     </section>
 
-    <!-- ===== STATS ===== -->
     <div class="container">
         <div class="stats" id="statsContainer">
             <div class="stat-item">
@@ -76,15 +73,11 @@
         </div>
     </div>
 
-    <!-- ===== NEWS SECTION ===== -->
     <div class="container">
         <div class="section-title"><i class="fas fa-newspaper"></i> Latest Updates</div>
-        <div class="news-grid" id="newsGrid">
-            <!-- Loaded from Firebase -->
-        </div>
+        <div class="news-grid" id="newsGrid"></div>
     </div>
 
-    <!-- ===== SERVICES PREVIEW ===== -->
     <div class="container">
         <div class="section-title"><i class="fas fa-tools"></i> Our Services</div>
         <div class="services-grid">
@@ -120,43 +113,35 @@
             </div>
         </div>
         <div style="text-align:center;margin-bottom:20px;">
-            <a href="services.html" class="btn"><i class="fas fa-arrow-right"></i> View All Services</a>
+            <a href="/services" class="btn"><i class="fas fa-arrow-right"></i> View All Services</a>
         </div>
     </div>
 
-    <!-- ===== GALLERY PREVIEW ===== -->
     <div class="container">
         <div class="section-title"><i class="fas fa-images"></i> Project Gallery</div>
-        <div class="project-grid" id="galleryGrid">
-            <!-- Loaded from Firebase -->
-        </div>
+        <div class="project-grid" id="galleryGrid"></div>
         <div style="text-align:center;margin-bottom:20px;">
-            <a href="gallery.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> View Full Gallery</a>
+            <a href="/gallery" class="btn btn-outline"><i class="fas fa-arrow-right"></i> View Full Gallery</a>
         </div>
     </div>
 
-    <!-- ===== TESTIMONIALS PREVIEW ===== -->
     <div class="container">
         <div class="section-title"><i class="fas fa-star"></i> Testimonials</div>
-        <div class="testimonial-grid" id="testimonialsGrid">
-            <!-- Loaded from Firebase -->
-        </div>
+        <div class="testimonial-grid" id="testimonialsGrid"></div>
         <div style="text-align:center;margin-bottom:20px;">
-            <a href="testimonials.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> Read All Reviews</a>
+            <a href="/testimonials" class="btn btn-outline"><i class="fas fa-arrow-right"></i> Read All Reviews</a>
         </div>
     </div>
 
-    <!-- ===== CTA ===== -->
     <div class="container">
         <div class="cta-section">
             <h2><i class="fas fa-phone-alt"></i> Ready to transform your space?</h2>
             <div>
-                <a href="contact.html" class="btn"><i class="fas fa-calendar-check"></i> Contact Us Today</a>
+                <a href="/contact" class="btn"><i class="fas fa-calendar-check"></i> Contact Us Today</a>
             </div>
         </div>
     </div>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-flex">
@@ -168,11 +153,11 @@
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-                    <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
-                    <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
-                    <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
-                    <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                    <a href="/"><i class="fas fa-home"></i> Home</a>
+                    <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+                    <a href="/services"><i class="fas fa-wrench"></i> Services</a>
+                    <a href="/gallery"><i class="fas fa-image"></i> Gallery</a>
+                    <a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a>
                 </div>
                 <div class="footer-col">
                     <h4>Connect</h4>
@@ -191,11 +176,7 @@
         </div>
     </footer>
 
-    <!-- ===== WHATSAPP FLOATING ===== -->
-    <a href="https://wa.me/260967563554" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
+    <a href="https://wa.me/260967563554" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
     <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
 
     <script type="module" src="script.js"></script>

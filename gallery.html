@@ -114,13 +114,13 @@
             </div>
             <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
             <nav class="nav" id="mainNav">
-                <a href="index.html"><i class="fas fa-home"></i> Home</a>
-                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
-                <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
-                <a href="gallery.html" class="active"><i class="fas fa-image"></i> Gallery</a>
-                <a href="testimonials.html"><i class="fas fa-star"></i> Reviews</a>
-                <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
-                <a href="admin.html"><i class="fas fa-cog"></i> Admin</a>
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="/services"><i class="fas fa-wrench"></i> Services</a>
+                <a href="/gallery" class="active"><i class="fas fa-image"></i> Gallery</a>
+                <a href="/testimonials"><i class="fas fa-star"></i> Reviews</a>
+                <a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a>
+                <a href="/admin"><i class="fas fa-cog"></i> Admin</a>
             </nav>
         </div>
     </header>
@@ -128,7 +128,7 @@
     <section class="gallery-hero">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.7rem;margin:0 8px;"></i> Gallery
+                <a href="/">Home</a> <i class="fas fa-chevron-right" style="font-size:0.7rem;margin:0 8px;"></i> Gallery
             </div>
             <h1>Our Project Gallery</h1>
             <p>View some of our completed projects and transformations</p>
@@ -147,7 +147,7 @@
         </div>
 
         <div class="project-grid" id="galleryGrid">
-            <!-- Loaded from Firebase -->
+            <!-- Loaded from script.js -->
         </div>
 
     </div>
@@ -163,11 +163,11 @@
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-                    <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
-                    <a href="services.html"><i class="fas fa-wrench"></i> Services</a>
-                    <a href="gallery.html"><i class="fas fa-image"></i> Gallery</a>
-                    <a href="contact.html"><i class="fas fa-phone-alt"></i> Contact</a>
+                    <a href="/"><i class="fas fa-home"></i> Home</a>
+                    <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+                    <a href="/services"><i class="fas fa-wrench"></i> Services</a>
+                    <a href="/gallery"><i class="fas fa-image"></i> Gallery</a>
+                    <a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a>
                 </div>
                 <div class="footer-col">
                     <h4>Connect</h4>
@@ -189,94 +189,7 @@
     <a href="https://wa.me/260967563554" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
     <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
 
+    <!-- ONLY ONE SCRIPT TAG - NO DUPLICATE -->
     <script type="module" src="script.js"></script>
-    <script type="module">
-        import { db, collection, query, orderBy, onSnapshot } from './firebase-config.js';
-
-        // Gallery filter
-        const filterButtons = document.querySelectorAll('.gallery-filter button');
-        const galleryGrid = document.getElementById('galleryGrid');
-
-        let allItems = [];
-
-        function renderGallery(filter = 'all') {
-            if (!galleryGrid) return;
-            const filtered = filter === 'all' ? allItems : allItems.filter(item => item.category === filter);
-            
-            if (filtered.length === 0) {
-                galleryGrid.innerHTML = `
-                    <div class="gallery-empty">
-                        <i class="fas fa-images"></i>
-                        <p>No projects found in this category.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            let html = '';
-            filtered.forEach((item) => {
-                html += `
-                    <div class="project-item animate-on-scroll">
-                        <div class="project-img"><img src="${item.image}" alt="${item.title}" /></div>
-                        <div class="project-info">
-                            <h4>${item.title}</h4>
-                            <p>${item.category}</p>
-                            <span class="tag"><i class="fas fa-image"></i> ${item.category}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            galleryGrid.innerHTML = html;
-            
-            // Re-observe new elements
-            document.querySelectorAll('.project-item.animate-on-scroll').forEach(el => {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                        }
-                    });
-                }, { threshold: 0.1 });
-                observer.observe(el);
-            });
-        }
-
-        // Load gallery
-        const q = query(collection(db, 'gallery'), orderBy('timestamp', 'desc'));
-        onSnapshot(q, (snapshot) => {
-            allItems = [];
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                allItems.push({
-                    title: data.title || 'Project',
-                    category: data.category || 'General',
-                    image: data.image || 'project1.jpg'
-                });
-            });
-
-            if (allItems.length === 0) {
-                // Default images
-                const defaults = [
-                    { title: 'DSTV Installation', category: 'Installation', image: 'project1.jpg' },
-                    { title: 'Garden Design', category: 'Landscaping', image: 'project2.jpg' },
-                    { title: 'Plumbing Project', category: 'Plumbing', image: 'project3.jpg' },
-                    { title: 'Paver Installation', category: 'Pavers', image: 'project4.jpg' },
-                ];
-                allItems = defaults;
-            }
-
-            const activeFilter = document.querySelector('.gallery-filter button.active')?.dataset.filter || 'all';
-            renderGallery(activeFilter);
-        });
-
-        // Filter click
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                filterButtons.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                renderGallery(this.dataset.filter);
-            });
-        });
-    </script>
 </body>
 </html>
